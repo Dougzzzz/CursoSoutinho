@@ -1,1 +1,15 @@
-testanto o nodemon
+{
+  "toDos": [
+    {
+      "date": "2023-06-24T20:38:15.645Z",
+      "content": "primeira TO DO",
+      "done": false
+    },
+    {
+      "date": "2023-06-24T20:38:15.646Z",
+      "content": "segunda TO DO",
+      "done": false
+    }
+  ],
+  "dogs": []
+}
