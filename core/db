@@ -1,20 +1,14 @@
 {
   "toDos": [
     {
-      "id": "428bd399-919c-435e-abad-d68995ed7e3c",
-      "date": "2023-06-27T00:26:13.358Z",
+      "id": "e8f27de7-93f5-4a62-b231-c1fcceef589b",
+      "date": "2023-06-28T23:29:22.681Z",
       "content": "primeira TO DO",
       "done": false
     },
     {
-      "id": "11ad2db9-2cf6-4bfb-a886-fc2c0c6b8400",
-      "date": "2023-06-27T00:26:13.359Z",
-      "content": "primeira TO DO",
-      "done": false
-    },
-    {
-      "id": "6465e74f-258c-4280-8b0b-b3b1ffba9ae7",
-      "date": "2023-06-27T00:26:13.359Z",
+      "id": "90a2ba82-eca8-4c4a-a972-ba95a9f16405",
+      "date": "2023-06-28T23:29:22.683Z",
       "content": "Atualizada!",
       "done": false
     }

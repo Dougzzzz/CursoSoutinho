@@ -1,13 +1,16 @@
 import fs, { readFileSync } from "fs" 
+import { todo } from "node:test";
 import { v4 as uuid } from 'uuid';
 //const fs = require("fs") CommonJS;
 const DB_FILE_PATH = "./core/db"
 
 console.log("[CRUD]");
 
+type UUID = string;
+
 
 interface ToDo {
-  id: string;
+  id: UUID;
   date: string;
   content:string;
   done: boolean;
@@ -48,7 +51,7 @@ function read(): Array<ToDo> {
 
 }
 
-function update(id: string, partialToDo: Partial<ToDo>){
+function update(id: UUID, partialToDo: Partial<ToDo>): ToDo {
   let updatedToDo;
   const toDos = read();
   toDos.forEach((currentToDo)=> {
@@ -66,15 +69,30 @@ function update(id: string, partialToDo: Partial<ToDo>){
     throw new Error("Please, provide another ID!")
   }
   
+  return updatedToDo;
 }
 
-function updateContentById(id: string, content: string) {
+function updateContentById(id: UUID, content: string): ToDo {
   return update(id, {
     content,
   });
 }
 
+function deleteById (id: UUID){
+  const toDos = read();
 
+  const toDosWthoutOne = toDos.filter((toDo)=>{
+    if (toDo.id === id){
+      return false;
+    }
+    return true;
+  });
+
+ 
+  fs.writeFileSync(DB_FILE_PATH,JSON.stringify({
+    toDos: toDosWthoutOne,
+  }, null, 2))
+}
 
 function CLEAR_DB() {
   fs.writeFileSync(DB_FILE_PATH,"");
@@ -83,10 +101,10 @@ function CLEAR_DB() {
 // [SIMULATION]
 CLEAR_DB()
 create("primeira TO DO");
-create("primeira TO DO");
-const terceiraToDo = create("segunda TO DO");
-// update (terceiraToDo.id, {
-//   content:"Atualizada"
-// })
-updateContentById(terceiraToDo.id, "Atualizada!")
-console.log(read());
+const secondToDo = create("segunda To Do");
+deleteById(secondToDo.id);
+const thirdToDo = create("terceira TO DO");
+updateContentById(thirdToDo.id, "Atualizada!");
+const toDos = read();
+console.log(toDos);
+console.log(toDos.length);
