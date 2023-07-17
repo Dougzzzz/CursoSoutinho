@@ -1,9 +1,22 @@
 import React from "react";
 import { GlobalStyles } from "@ui/theme/GlobalStyles";
+import { toDoController } from "@ui/controller/todo";
 
 const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
 
+interface HomeToDo {
+    id: string;
+    content: string;
+}
+
 export default function Page() {
+    const [toDos, setTodos] = React.useState<HomeToDo[]>([]);
+
+    React.useEffect(() => {
+        toDoController.get().then((toDos) => {
+            setTodos(toDos);
+        });
+    }, []);
     return (
         <main>
             <GlobalStyles themeName="devsoutinho" />
@@ -44,24 +57,23 @@ export default function Page() {
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox" />
-                            </td>
-                            <td>d4f26</td>
-                            <td>
-                                Conteúdo de uma TODO Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Eaque vero facilis
-                                obcaecati, autem aliquid eius! Consequatur eaque
-                                doloribus laudantium soluta optio odit,
-                                provident, ab voluptates doloremque voluptas
-                                recusandae aspernatur aperiam.
-                            </td>
-                            <td align="right">
-                                <button data-type="delete">Apagar</button>
-                            </td>
-                        </tr>
-
+                        {toDos.map((currentToDo) => {
+                            return (
+                                <tr key={currentToDo.id}>
+                                    <td>
+                                        <input type="checkbox" />
+                                    </td>
+                                    <td>{currentToDo.id.substring(0, 4)}</td>
+                                    <td>{currentToDo.content}</td>
+                                    <td align="right">
+                                        <button data-type="delete">
+                                            Apagar
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                        {/* 
                         <tr>
                             <td
                                 colSpan={4}
@@ -76,7 +88,7 @@ export default function Page() {
                             <td colSpan={4} align="center">
                                 Nenhum item encontrado
                             </td>
-                        </tr>
+                        </tr> */}
 
                         <tr>
                             <td
