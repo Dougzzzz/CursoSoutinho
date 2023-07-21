@@ -10,10 +10,11 @@ interface HomeToDo {
 }
 
 export default function Page() {
+    const [page, setPage] = React.useState(1);
     const [toDos, setTodos] = React.useState<HomeToDo[]>([]);
 
     React.useEffect(() => {
-        toDoController.get().then((toDos) => {
+        toDoController.get({ page }).then(({ toDos }) => {
             setTodos(toDos);
         });
     }, []);
@@ -73,7 +74,7 @@ export default function Page() {
                                 </tr>
                             );
                         })}
-                        {/* 
+
                         <tr>
                             <td
                                 colSpan={4}
@@ -88,7 +89,7 @@ export default function Page() {
                             <td colSpan={4} align="center">
                                 Nenhum item encontrado
                             </td>
-                        </tr> */}
+                        </tr>
 
                         <tr>
                             <td
@@ -96,8 +97,11 @@ export default function Page() {
                                 align="center"
                                 style={{ textAlign: "center" }}
                             >
-                                <button data-type="load-more">
-                                    Carregar mais{" "}
+                                <button
+                                    data-type="load-more"
+                                    onClick={() => setPage(page + 1)}
+                                >
+                                    Página {page} Carregar mais{" "}
                                     <span
                                         style={{
                                             display: "inline-block",
